@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" th:href="@{/css/addProduct.css}">
+    <link rel="stylesheet" th:href="@{/css/toolBar.css}"/>
+</head>
+<body>
+<div class="header">
+    <div class="left">
+        <h2>Hussam</h2>
+        <a class="Home" th:href="@{/product}">Home</a>
+        <a class="add-product" th:href="@{/product/post}">Add Product</a>
+    </div>
+
+    <div class="right">
+        <form th:action="@{/product/search}" method="get">
+            <input type="text" name="query" placeholder="Search products..." required>
+            <button type="submit" class="search-button">Search</button>
+        </form>
+        <div class="profile-container">
+            <img class="profile-icon" th:src="@{${users.image}}" th:if="${users != null}">
+            <div class="bottom-bar">
+                <a class="buttonProfile" th:href="@{/myProfile}">My Profile</a>
+                <a class="buttonProfile" th:href="@{/product/getMine}">My Product</a>
+                <a class="buttonProfile" th:href="@{/product/getMine/pyment}">My Payments</a>
+                <a class="buttonProfile" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div class="photo-container">
+        <img id="photoPreview" th:src="@{/images/ite.jpg}" alt="Photo Preview">
+    </div>
+    <form id="productForm"
+          th:action="@{/product/post}"
+          th:object="${product}" method="post">
+        <h2>Add Product</h2>
+        <div class="input-field">
+            <input type="text" id="name" name="name" th:field="*{name}" required>
+            <label for="name">Name</label>
+        </div>
+        <div class="input-field">
+            <input type="number" id="price" name="price" th:field="*{price}" required>
+            <label for="price">Price</label>
+        </div>
+        <div class="input-field">
+            <input type="text" id="description" name="description" th:field="*{description}" required>
+            <label for="description">Description</label>
+        </div>
+
+        <div class="input-field">
+            <input type="number" id="remaining" name="remaining" th:field="*{remaining}" required>
+            <label for="remaining">Remaining</label>
+        </div>
+        <input type="file" id="backgroundImage" accept="image/*" style="display: none;">
+        <button type="button" id="uploadButton">Upload Image</button>
+        <button type="submit" id="submitButton">Add Product</button>
+    </form>
+</div>
+<script th:src="@{/js/addImage.js}"></script>
+</body>
+</html>

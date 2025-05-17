@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" th:href="@{/css/productDetails.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toolBar.css}"/>
+</head>
+<body>
+<div class="header">
+    <div class="left">
+        <h2>Hussam</h2>
+        <a class="Home" th:href="@{/product}">Home</a>
+        <a class="add-product" th:href="@{/product/post}">Add Product</a>
+    </div>
+
+    <div class="right">
+        <form th:action="@{/product/search}" method="get">
+            <input type="text" class="Search" name="query" placeholder="Search products..." required>
+            <button type="submit" class="search-button">Search</button>
+        </form>
+        <div class="profile-container">
+            <img class="profile-icon" th:src="@{${users.image}}" th:if="${users != null}">
+            <div class="bottom-bar">
+                <a class="buttonProfile" th:href="@{/myProductPage}">My Profile</a>
+                <a class="buttonProfile" th:href="@{/product/getMine}">My Product</a>
+                <a class="buttonProfile" th:href="@{/product/getMine/pyment}">My Payments</a>
+                <a class="buttonProfile" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="product-details-container" th:action="@{/product/post/pyment}" th:object="${product}" >
+        <div class="product-details-card">
+            <img class="product-details-thumbnail" th:src="@{${product.image}}">
+            <div class="product-details-info">
+                <h2 class="product-details-name" th:text="${product.name}"></h2>
+                <p class="product-details-description" th:text="${product.description}"></p>
+                <p class="product-details-price">Price: $<span th:text="${product.price}"></span></p>
+                <p class="product-details-remaining">Remaining: <span th:text="${product.remaining}"></span></p>
+            </div>
+            <a class="buy-button" th:href="@{/product/post/pyment/{productId}(productId=${product.id})}">My Payments</a>
+
+        </div>
+    </div>
+
+</body>
+</html>

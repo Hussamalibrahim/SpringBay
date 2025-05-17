@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" th:href="@{/css/product.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toolBar.css}"/>
+</head>
+<body>
+<div class="header">
+    <div class="left">
+        <h2>Hussam</h2>
+        <a class="Home" th:href="@{/product}">Home</a>
+        <a class="add-product" th:href="@{/product/post}">Add Product</a>
+    </div>
+
+    <div class="right">
+        <form th:action="@{/product/search}" method="get">
+            <input name="query" placeholder="Search products..." required type="text">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+        <div class="profile-container">
+            <img class="profile-icon" th:src="@{${users.image}}" th:if="${users != null}">
+            <div class="bottom-bar">
+                <a class="buttonProfile" th:href="@{/myProfile}">My Profile</a>
+                <a class="buttonProfile" th:href="@{/product/getMine}">My Product</a>
+                <a class="buttonProfile" th:href="@{/product/getMine/pyment}">My Payments</a>
+                <a class="buttonProfile" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="product-container">
+    <div th:each="product : ${products}">
+        <div class="product-card" th:onclick="|window.location.href='/product/Details/' + ${product.id}|">
+            <img class="product-thumbnail" th:src="@{${product.image}}">
+            <div class="product-details">
+                <p class="product-name"><label th:text="${product.name}"></label></p>
+                <p class="product-description"><label th:text="${product.description}"></label></p>
+                <p class="product-price"><label th:text="${product.price}"></label></p>
+                <p class="product-remaining">Remaining: <label th:text="${product.remaining}"></label></p>
+            </div>
+            <button class="buy-button">Buy</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
